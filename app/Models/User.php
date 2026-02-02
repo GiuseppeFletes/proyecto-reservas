@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    //obtener todas las reservas de usuario 
+    public function reservations()
+    {
+        return $this->hasMany(\App\Models\Reservations::class);
+
+    }
 }
