@@ -7,7 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
+
     use HasFactory;
+
+    protected $fillable = [
+    'user_id',
+    'service_id',
+    'date',
+    'time',
+    'status',
+    'notes',
+];
+
     //esto conecta cada reserva con un usuario y cada reserva con un servicio
     public function user()
     {
