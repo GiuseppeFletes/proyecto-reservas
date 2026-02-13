@@ -53,7 +53,17 @@ class ReservationController extends Controller
         // Si es CLIENTE → Laravel asigna automáticamente el user_id
         $validated['user_id'] = auth()->id();
     }
-
+    //verificar disponibilidad de horario
+    $alreadyExistis = Reservation::where('service_id', $validated['service_id'])
+        ->where('date', $validated['date'])
+        ->where('time', $validated['time'])
+        ->where('status', '!=', 'canceled')
+        ->exists();
+    if($alreadyExistis){
+        return response()->json([
+            'message' => 'Este horario ya esta reservado para este servicio'
+        ], 409);
+    }    
     // Crear reserva
     $reservation = Reservation::create($validated);
 
